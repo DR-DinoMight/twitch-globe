@@ -43,7 +43,7 @@ interface Pin {
 }
 
 
-
+//https://nominatim.openstreetmap.org/search?q=Switzerland&format=json&limit=1
 const pins: Pin[] = [
   { lat: 53.3806626, lng: -1.4702278, username: 'Matt', pinMesh: null, labelMesh: null },
 
