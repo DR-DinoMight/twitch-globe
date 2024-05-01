@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "globe.gl": "^2.32.4",
     "three": "^0.164.1",
     "tmi.js": "^1.8.5"
   },
