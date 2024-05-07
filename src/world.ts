@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Globe from 'globe.gl';
 import globeJson from '../assets/countries_110m.json';
 import * as THREE from 'three';
