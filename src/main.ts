@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Point, updatePoints } from './world';
+import { Point, updatePoints, clearPoints } from './world';
 import tmi from "tmi.js";
 import { toSentenceCase } from './utils/stringUtils';
 
@@ -23,24 +23,23 @@ const client = new tmi.Client({
 })
 client.connect().then(() => {
   client.on('message', async (channel, context, message) => {
-    console.log('channel', {
-      channel,
-      user: context.username,
-      context,
-      message
-    });
+    // console.log('channel', {
+    //   channel,
+    //   user: context.username,
+    //   context,
+    //   message
+    // });
 
     const badges = context.badges || {};
     const isBroadcaster = badges.broadcaster;
     const isMod = badges.moderator;
-    const isModUp = isBroadcaster ?? isMod;
     //if message starts with !pin then add point to map
     if(message.startsWith('!pin ')) {
       //check if user exists in points already, if so return
-      if (points.filter(p => p.username === context.username).length > 0) {
-        console.log("Already Exits");
-        return;
-      }
+      // if (points.filter(p => p.username === context.username).length > 0) {
+      //   // console.log("Already Exits");
+      //   return;
+      // }
 
       // take the message and try and call the !pin command parser
       const location = message.toLowerCase().replace("!pin", "");
@@ -69,9 +68,10 @@ client.connect().then(() => {
       }
     }
     // if message starts with clear and user is a mod clear pins
-    if (message.startsWith("!clear") && isModUp) {
-      points = [];
-      updatePoints(points);
+    if (message.startsWith("!clear") && (isBroadcaster || isMod)) {
+
+      clearPoints();
+      console.log('cleared');
     }
 
 

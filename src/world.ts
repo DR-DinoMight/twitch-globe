@@ -128,8 +128,15 @@ function createHtmlElementPins(point: Point) {
   return el;
 }
 // Function to update the points on the globe and start the animation
-function updatePoints(newPoints: Point[], animate: boolean = false) {
-  points = newPoints;
+function updatePoints(newPoints: Point[] | null, animate: boolean = false) {
+
+  if (newPoints === null) {
+    points = [];
+  }
+  else {
+    points = newPoints;
+  }
+
   world
   .htmlElementsData(points)
   //@ts-ignore
@@ -141,14 +148,19 @@ function updatePoints(newPoints: Point[], animate: boolean = false) {
   .pointsData(points)
   .pointAltitude(0.3)
   .pointColor(point  => point.color)
-  currentIndex = 0;
 
+  // currentIndex = 0;
   if (animate && newPoints.length > 0) {
     const lastPoint = newPoints[newPoints.length - 1];
     focusOnPoint(lastPoint);
   }
-  startAnimation();
+  // startAnimation();
 
+}
+
+function clearPoints() {
+  window.location.reload();
+  //remove last pin
 }
 
 function focusOnPoint(point: Point) {
@@ -175,4 +187,4 @@ export type Point = {
   username: string;
 }
 
-export { updatePoints, world }
+export { updatePoints, world, clearPoints }
