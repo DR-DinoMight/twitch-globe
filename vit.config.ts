@@ -4,6 +4,7 @@ import oxlintPlugin from 'vite-plugin-oxlint';
 export default defineConfig({
     root: './src',
     base: './',
+    publicDir: 'public',
     build: {
         outDir: '../dist',
         emptyOutDir: true,
