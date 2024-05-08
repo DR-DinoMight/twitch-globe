@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="stylesheet" href="/src/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Globe with Points</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-      #globeContainer {
-        width: 100vw;
-        height: 80vh;
-      }
-      .custom-point {
-        position: absolute;
-        transform: translate(-50%, -50%);
-      }
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="stylesheet" href="/src/style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Globe with Points</title>
 
-      .custom-label {
-        position: absolute;
-        transform: translate(-50%, -100%);
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        white-space: nowrap;
-      }
-
-    </style>
-  </head>
-  <body>
-    <div id="globeContainer"></div>
-    <script type="module" src="/src/main.ts"></script>
-
-  </body>
+    </head>
+    <body>
+        <div id="globeContainer"></div>
+        <div class="form-overlay">
+            <h2>Settings</h2>
+            <div class="form">
+            <div>
+                <label for="room">Room:</label>
+                <input type="text" id="room" value="dr_dinomight"><br>
+                <label for="globeColor">Globe Color:</label>
+                <input type="color" id="globeColor" value="#000011"><br>
+                <label for="atmosphereColor">Atmosphere Color:</label>
+                <input type="color" id="atmosphereColor" value="#f7f7f7"><br>
+                <label for="atmosphereAltitude">Atmosphere Altitude:</label>
+                <input type="range" id="atmosphereAltitude" min="0" max="1" step="0.1" value="0.1"><br>
+                <label for="globeOpacity">Globe Opacity:</label>
+                <input type="range" id="globeOpacity" min="0" max="1" step="0.1" value="0.9"><br>
+                <label for="hexPolygonColor1">Hex Polygon Color 1:</label>
+                <input type="color" id="hexPolygonColor1" value="#f7f7f7"><br>
+                <label for="hexPolygonColor2">Hex Polygon Color 2:</label>
+                <input type="color" id="hexPolygonColor2" value="#c3c3c3"><br>
+                <label for="hexPolygonColor3">Hex Polygon Color 3:</label>
+                <input type="color" id="hexPolygonColor3" value="#909090"><br>
+                <label for="hexPolygonColor4">Hex Polygon Color 4:</label>
+                <input type="color" id="hexPolygonColor4" value="#5d5d5d"><br>
+                <label for="hideStars">Hide Stars:</label>
+                <input type="checkbox" id="hideStars"><br>
+                <label for="transparentBackground">Transparent Background:</label>
+                <input type="checkbox" id="transparentBackground"><br>
+            </div>
+            <div class="fill">
+                <label for="settingsUrl">Settings URL:</label>
+                <textarea id="settingsUrl" readonly></textarea><br>
+                <button id="copyUrlButton">Copy URL</button>
+            </div>
+        </div>
+        </div>
+        <div class="tooltip-overlay">
+            <div class="tooltip">Press S to get to settings</div>
+          </div>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
 </html>

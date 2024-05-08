@@ -13,9 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "globe.gl": "^2.32.4",
+    "oxlint": "^0.2.18",
     "partysocket": "1.0.1",
     "three": "^0.164.1",
-    "tmi.js": "^1.8.5"
+    "tmi.js": "^1.8.5",
+    "vite-plugin-oxlint": "^1.0.2"
   },
   "devDependencies": {
     "@types/three": "^0.164.0",
