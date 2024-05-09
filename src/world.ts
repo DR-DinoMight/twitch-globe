@@ -129,6 +129,16 @@ function focusOnPoint(point: Point) {
     }, 3000);
 }
 
+function pulseOnPoint(point: Point) {
+    world.ringColor(point.color);
+    const srcRing = { lat: point.lat, lng: point.lng };
+    globe.ringsData([...globe.ringsData(), srcRing]);
+    setTimeout(
+        () => globe.ringsData(globe.ringsData().filter((r) => r !== srcRing)),
+        FLIGHT_TIME * ARC_REL_LEN
+    );
+}
+
 function handleFormToggle() {
     const formOverlay = document.querySelector('.form-overlay');
     formOverlay.style.display = formOverlay.style.display === 'block' ? 'none' : 'block';
@@ -212,4 +222,4 @@ document.querySelectorAll('.form-overlay input').forEach((input) => {
 
 document.getElementById('copyUrlButton').addEventListener('click', copyUrlToClipboard);
 
-export { updatePoints, world, clearPoints, handleColorChange };
+export { updatePoints, world, clearPoints, handleColorChange, pulseOnPoint };

@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Point, updatePoints, clearPoints, handleColorChange } from './world';
+import { Point, updatePoints, clearPoints, handleColorChange, world } from './world';
 import tmi from 'tmi.js';
 import { toSentenceCase } from './utils/stringUtils';
 
@@ -66,6 +66,11 @@ client.connect().then(() => {
         if (message.startsWith('!clear') && (isBroadcaster || isMod)) {
             clearPoints();
             console.log('cleared');
+        }
+        const point = points.find((point) => point.username === context?.username);
+        if (point) {
+            // pulse a ring at the points lat long
+            pulseOnPoint(point);
         }
     });
 });
