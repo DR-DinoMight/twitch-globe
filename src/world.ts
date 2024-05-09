@@ -130,13 +130,35 @@ function focusOnPoint(point: Point) {
 }
 
 function pulseOnPoint(point: Point) {
-    world.ringColor(point.color);
+    world
+        .ringColor(() => point.color)
+        .ringRepeatPeriod(200)
+        .ringAltitude(0.3);
     const srcRing = { lat: point.lat, lng: point.lng };
-    globe.ringsData([...globe.ringsData(), srcRing]);
-    setTimeout(
-        () => globe.ringsData(globe.ringsData().filter((r) => r !== srcRing)),
-        FLIGHT_TIME * ARC_REL_LEN
-    );
+    world.ringsData([...world.ringsData(), srcRing]);
+    setTimeout(() => world.ringsData(world.ringsData().filter((r) => r !== srcRing)), 3000);
+}
+
+function arcBetweeenPoints(srcPoint: Point, destPoint: Point) {
+    world
+        .arcColor(() => [srcPoint.color, destPoint.color])
+        .arcAltitudeAutoScale(0.6)
+        .arcDashLength(() => Math.random())
+        .arcDashGap(() => Math.random())
+        .arcDashAnimateTime(() => Math.random() * 4000 + 500);
+    world.arcStroke(1.3);
+
+    const arcData = {
+        startLat: srcPoint.lat,
+        startLng: srcPoint.lng,
+        endLat: destPoint.lat,
+        endLng: destPoint.lng,
+        color: [srcPoint.color, destPoint.color],
+    };
+    world.arcsData([...world.arcsData(), arcData]);
+    setTimeout(() => {
+        world.arcsData(world.arcsData().filter((d) => d !== arcData));
+    }, 4000);
 }
 
 function handleFormToggle() {
@@ -222,4 +244,4 @@ document.querySelectorAll('.form-overlay input').forEach((input) => {
 
 document.getElementById('copyUrlButton').addEventListener('click', copyUrlToClipboard);
 
-export { updatePoints, world, clearPoints, handleColorChange, pulseOnPoint };
+export { updatePoints, world, clearPoints, handleColorChange, pulseOnPoint, arcBetweeenPoints };

@@ -1,5 +1,13 @@
 //@ts-nocheck
-import { Point, updatePoints, clearPoints, handleColorChange, world } from './world';
+import {
+    Point,
+    updatePoints,
+    clearPoints,
+    handleColorChange,
+    world,
+    pulseOnPoint,
+    arcBetweeenPoints,
+} from './world';
 import tmi from 'tmi.js';
 import { toSentenceCase } from './utils/stringUtils';
 
@@ -70,7 +78,22 @@ client.connect().then(() => {
         const point = points.find((point) => point.username === context?.username);
         if (point) {
             // pulse a ring at the points lat long
+            // console.log('pulsing point for user', context.username);
+
             pulseOnPoint(point);
+            const mentionedUser = message.toLocaleLowerCase().match(/@(\w+)/)?.[1];
+            if (
+                mentionedUser &&
+                point.username.toLocaleLowerCase() !== mentionedUser.toLocaleLowerCase()
+            ) {
+                const mentionedPoint = points.find(
+                    (p) => p.username === mentionedUser.toLocaleLowerCase()
+                );
+                if (mentionedPoint) {
+                    arcBetweeenPoints(point, mentionedPoint);
+                }
+            }
+            //check if the message contains another users name if that username is pinned then send out an arc
         }
     });
 });
